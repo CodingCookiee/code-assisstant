@@ -4,8 +4,10 @@ import Footer from "../src/components/Layout/Footer";
 import { Toaster } from "react-hot-toast";
 import "../src/styles/globals.css";
 
-function App({ Component, pageProps }) {
-  return (
+function MyApp({ Component, pageProps }) {
+  const getLayout = Component.getLayout || ((page) => page);
+
+  return getLayout(
     <SessionProvider session={pageProps.session}>
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -19,4 +21,4 @@ function App({ Component, pageProps }) {
   );
 }
 
-export default App;
+export default MyApp;

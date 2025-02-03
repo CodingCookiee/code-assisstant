@@ -9,4 +9,9 @@ function HomePage() {
   );
 }
 
+// Add getInitialProps to handle server-side data fetching
+HomePage.getInitialProps = async (ctx) => {
+  return { props: {} };
+};
+
 export default HomePage;
