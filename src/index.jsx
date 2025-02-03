@@ -1,13 +1,10 @@
-'use client';
-
 import React from 'react';
+import Hero from '../src/components/Layout/Hero';
 
-const Home = () => {
+export default function Home() {
     return (
-        <div>
-            <h1>Home</h1>
+        <div className="container mx-auto">
+            <Hero />
         </div>
     );
 }
-
-export default Home;
