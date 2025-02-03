@@ -4,9 +4,9 @@ import Footer from "../src/components/Layout/Footer";
 import { Toaster } from "react-hot-toast";
 import "../src/styles/globals.css";
 
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
+function App({ Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={pageProps.session}>
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
@@ -18,3 +18,5 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     </SessionProvider>
   );
 }
+
+export default App;
