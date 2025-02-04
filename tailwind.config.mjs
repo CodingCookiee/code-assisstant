@@ -6,6 +6,7 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -44,8 +45,8 @@ export default {
           text: "#1A1A1A"
         },
         dark: {
-          primary: "#0E0E10",
-          secondary: "#1C1C21",
+          primary: "#29292c",
+          secondary: "#3b3b3f",
           text: "#FFFFFF"
         },
         yellow:{
