@@ -1,11 +1,15 @@
-import React from 'react';
+"use client"
+
+import { useState } from 'react';
+import { useSession, signOut } from "next-auth/react";
+import Link from 'next/link';
 
 const Header = () => {
-    return (
-        <div>
-            <h1>Header</h1>
-        </div>
-    );
+  return (
+    <header>
+      
+    </header>
+  );
 }
 
 export default Header;
