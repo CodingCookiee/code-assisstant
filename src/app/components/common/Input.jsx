@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Header = () => {
+const Input = () => {
     return (
         <div>
-            <h1>Header</h1>
+            <input type="text" />
         </div>
     );
 }
 
-export default Header;
+export default Input;

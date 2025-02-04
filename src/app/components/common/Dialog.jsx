@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Header = () => {
+const Dialog = () => {
     return (
         <div>
-            <h1>Header</h1>
+            <h1>Dialog</h1>
         </div>
     );
 }
 
-export default Header;
+export default Dialog;
