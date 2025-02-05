@@ -12,6 +12,7 @@ const buttonStyles = cva(
         ghost: "text-black-300 dark:text-white-800 hover:bg-black-100/10 dark:hover:bg-white-500/10",
         outline: "border border-black-200 hover:bg-black-100/10 dark:border-white-700 dark:hover:bg-white-500/10",
         danger: "bg-red-500 text-white hover:bg-red-600",
+        custom: ""
       },
       size: {
         sm: "h-8 px-3 text-xs",

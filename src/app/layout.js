@@ -4,18 +4,20 @@ import Header from './components/layout/Header'
 import Sidebar from './components/layout/Sidebar'
 import '../styles/globals.css'
 
+
+
 export const metadata = {
   title: 'Code Genius - Your Code Assistant',
   icons: {
-    icon: '/code_logo.png',
+    icon: '/favicon-light.png',
   },
 }
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="font-sf-light bg-light-primary dark:bg-dark-primary text-light-text dark:text-dark-text">
         <ThemeProvider>
+        
           <AuthProvider>
             <div className="flex min-h-screen">
               <Sidebar />

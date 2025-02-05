@@ -20,6 +20,16 @@
   }
 }
 
+/* favicon switcher */
+[data-theme='dark'] link[rel='icon'] {
+  href: url('/favicon-light.png');
+}
+
+[data-theme='light'] link[rel='icon'] {
+  href: url('/favicon-dark.png');
+}
+
+
 
 
 /* font layers */

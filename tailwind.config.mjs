@@ -34,10 +34,6 @@ export default {
           600: "#AFB0B6",
           500: "#62646C",
         },
-      
-        violet: {
-          300: "#5724ff",
-        },
      
         light: {
           primary: "#FFFFFF",
@@ -49,9 +45,12 @@ export default {
           secondary: "#3b3b3f",
           text: "#FFFFFF"
         },
-        yellow:{
-          primary: "#fec407",
-          dark: "#b4841c",
+        app:{
+          green: "#43dc9b",
+          blue_primary: "#4c42bc",  
+          blue_secondary: "#6453dc",
+          blue_light: "#6774d0",
+          violet_white: "#e2f5ec",
 
         }
       },
