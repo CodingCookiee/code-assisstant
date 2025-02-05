@@ -23,17 +23,35 @@ const handler = NextAuth({
   
   session: { 
     strategy: 'jwt',
-    maxAge: 5 * 24 * 60 * 60 
+    maxAge: 5 * 24 * 60 * 60 // 5 days
   },
   
   cookies: {
     sessionToken: {
-      name: 'next-auth.session-token',
+      name: `__Secure-next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: process.env.NODE_ENV === 'production'
+        secure: true,
+        domain: process.env.NEXT_PUBLIC_DOMAIN // Add your domain
+      }
+    },
+    callbackUrl: {
+      name: `__Secure-next-auth.callback-url`,
+      options: {
+        sameSite: 'lax',
+        path: '/',
+        secure: true
+      }
+    },
+    csrfToken: {
+      name: `__Host-next-auth.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true
       }
     }
   },
@@ -43,8 +61,6 @@ const handler = NextAuth({
       if (user) {
         token.id = user.id
         token.email = user.email
-        
-        // Redis caching for user data
         await redis.set(
           `user:${user.id}`,
           JSON.stringify(user),
@@ -56,15 +72,16 @@ const handler = NextAuth({
     },
     
     async session({ session, token }) {
-      session.user.id = token.id
-      
-      // Redis caching for session data
-      await redis.set(
-        `session:${token.id}`,
-        JSON.stringify(session),
-        'EX',
-        5 * 24 * 60 * 60
-      )
+      if (token) {
+        session.user.id = token.id
+        session.user.email = token.email
+        await redis.set(
+          `session:${token.id}`,
+          JSON.stringify(session),
+          'EX',
+          5 * 24 * 60 * 60
+        )
+      }
       return session
     }
   },
@@ -72,7 +89,9 @@ const handler = NextAuth({
   pages: {
     signIn: '/auth/signin',
     signUp: '/auth/signup'
-  }
+  },
+
+  debug: process.env.NODE_ENV === 'development'
 })
 
 export { handler as GET, handler as POST }

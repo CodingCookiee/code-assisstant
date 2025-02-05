@@ -75,23 +75,42 @@ export const signIn = async (credentials) => {
 
 
 export const getUser = async (userId) => {
-  // Try Redis Cache First
-  const cachedUser = await redis.get(`user:${userId}`);
-  if (cachedUser) {
-    return JSON.parse(cachedUser);
+  if (!userId) {
+    throw createError(400, "User ID is required");
   }
 
-  // Fetch from Database
-  const user = await User.findById(userId);
-  if (!user) {
-    throw createError(404, "User not found");
-  }
-  await redis.set(
-    `user:${userId}`,
-    JSON.stringify(user),
-    "EX",
-    60 * 60 * 24 * 5
-  );
-  return user;
-};
+  try {
+    // Try Redis Cache First
+    const cachedUser = await redis.get(`user:${userId}`);
+    if (cachedUser) {
+      const parsedUser = JSON.parse(cachedUser);
+      const { password, ...userWithoutPassword } = parsedUser;
+      return userWithoutPassword;
+    }
 
+    // Fetch from Database
+    const user = await User.findById(userId);
+    if (!user) {
+      throw createError(404, "User not found");
+    }
+
+    // Convert to plain object and remove password
+    const userObj = user.toObject();
+    const { password, ...userWithoutPassword } = userObj;
+
+    // Cache the user data without password
+    await redis.set(
+      `user:${userId}`,
+      JSON.stringify(userWithoutPassword),
+      "EX",
+      60 * 60 * 24 * 5
+    );
+
+    return userWithoutPassword;
+  } catch (error) {
+    if (error.name === 'CastError') {
+      throw createError(400, "Invalid user ID format");
+    }
+    throw error;
+  }
+}
