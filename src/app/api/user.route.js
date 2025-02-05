@@ -1,7 +1,7 @@
-import { rateLimit } from '../middleware/rateLimit.middleware.js'
-import { authMiddleware } from '../middleware/auth.middleware.js'
+import { rateLimit } from '../../services/middleware/rateLimit.middleware.js'
+import { authMiddleware } from '../../services/middleware/auth.middleware.js'
 import { NextResponse } from 'next/server'
-import createError from '../_utils/createError.js'
+import createError from '../../services/_utils/createError.js'
 
 export async function GET(req) {
   try {

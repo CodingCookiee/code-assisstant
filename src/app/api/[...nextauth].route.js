@@ -1,8 +1,8 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { signIn } from '../controllers/auth.controller.js'
-import { redis } from '../lib/redis.js'
-import { rateLimit } from '../middleware/rateLimit.middleware.js'
+import { signIn } from '../../services/controllers/auth.controller.js'
+import { redis } from '../../services/lib/redis.js'
+import { rateLimit } from '../../services/middleware/rateLimit.middleware.js'
 
 const handler = NextAuth({
   providers: [

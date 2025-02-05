@@ -1,5 +1,5 @@
-import { signUp } from '../controllers/auth.controller.js'
-import { rateLimiter } from '../middleware/rateLimit.middleware.js'
+import { signUp } from '../../services/controllers/auth.controller.js'
+import { rateLimiter } from '../../services/middleware/rateLimit.middleware.js'
 import { NextResponse} from 'next/server'
 
 export async function POST(req) {
