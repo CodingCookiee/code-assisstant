@@ -1,5 +1,5 @@
-import { signUp } from '@/services/controllers/auth.controller'
-import { rateLimit } from '@/services/middleware/rateLimit.middleware'
+import { signUp } from '../../../services/controllers/auth.controller'
+import { rateLimit } from '../../../services/middleware/rateLimit.middleware'
 import { NextResponse } from 'next/server'
 
 export async function POST(req) {

@@ -1,10 +1,9 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { signIn } from '../../services/controllers/auth.controller.js'
-import { redis } from '../../services/lib/redis.js'
-import { rateLimit } from '../../services/middleware/rateLimit.middleware.js'
+import { signIn } from '@/services/controllers/auth.controller'
+import { redis } from '@/services/lib/redis'
 
-const handler = NextAuth({
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -52,11 +51,8 @@ const handler = NextAuth({
     signIn: '/auth/signin',
     signUp: '/auth/signup',
   }
-})
-
-export async function POST(req) {
-  await rateLimit(req)
-  return handler(req)
 }
 
-export { handler as GET }
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST }
