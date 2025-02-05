@@ -1,26 +1,24 @@
-import { rateLimit } from '../../../services/middleware/rateLimit.middleware.js'
-import { authMiddleware } from '../../../services/middleware/auth.middleware.js'
+import { getUser } from '@/services/controllers/auth.controller'
+import { authMiddleware } from '@/services/middleware/auth.middleware'
 import { NextResponse } from 'next/server'
-import createError from '../../../services/_utils/createError.js'
 
 export async function GET(req) {
   try {
-    await rateLimit(req)
     const token = await authMiddleware(req)
-    const user = await getUser(token.sub)
+    const user = await getUser(token.id)
     
     return NextResponse.json({
       success: true,
       user
     })
   } catch (error) {
-    console.log('Error getting user data:', error.message)
     return NextResponse.json({ 
       success: false,
       message: error.message 
     }, { status: error.status || 500 })
   }
 }
+
 
 export async function POST(req) {
   try {

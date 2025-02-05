@@ -22,4 +22,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("User", UserSchema);
+// Check if model exists before creating
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
+
+export default User;

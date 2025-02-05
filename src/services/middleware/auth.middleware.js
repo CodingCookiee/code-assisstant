@@ -1,11 +1,18 @@
-import { getToken } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt'
 import createError from '../_utils/createError.js'
 
-export async function authMiddleware(req, res) {
-  const token = await getToken({ req });
+export async function authMiddleware(req) {
+  const token = await getToken({ 
+    req,
+    secret: process.env.NEXTAUTH_SECRET
+  })
+
   if (!token) {
-    throw createError(401, 'Unauthorized - Invalid token');
-  }
-  return token;
+    throw createError(401, 'Unauthorized - Invalid token')
   }
 
+  return {
+    id: token.id,
+    email: token.email
+  }
+}

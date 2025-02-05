@@ -1,10 +1,8 @@
-import { signUp } from '../../../services/controllers/auth.controller'
-import { rateLimit } from '../../../services/middleware/rateLimit.middleware'
+import { signUp } from '@/services/controllers/auth.controller'
 import { NextResponse } from 'next/server'
 
 export async function POST(req) {
   try {
-    await rateLimit(req)
     const data = await req.json()
     const user = await signUp(data)
     

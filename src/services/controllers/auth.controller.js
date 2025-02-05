@@ -4,10 +4,18 @@ import createError from "../_utils/createError.js";
 import { redis } from "../lib/redis.js";
 
 export const signUp = async (userData) => {
+// Check if the user already exists
+  const existingUser = await User.findOne({ email: userData.email });
+  if (existingUser) {
+    throw createError(409, "User Already Exists");
+  }
+
   const { email, password } = userData;
   if (!email || !password) {
     throw createError(400, "Please fill all the fields");
   }
+
+
 
 try{const hashedPassword = await bcrypt.hash(password, 10);
 const user = await User.create({
