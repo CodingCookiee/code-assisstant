@@ -33,15 +33,6 @@ export async function POST(req) {
     })
 
     response.cookies.set({
-      name: 'next-auth.csrf-token',
-      value: token,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/'
-    })
-
-    response.cookies.set({
       name: 'next-auth.callback-url',
       value: '/',
       httpOnly: true,
