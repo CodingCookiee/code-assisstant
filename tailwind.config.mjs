@@ -6,18 +6,25 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
         generalsans: ["General Sans", "sans-serif"],
-        'sf-light': ['SF Pro Text Light', 'sans-serif'],
-        'sf-regular': ['SF Pro Text Regular', 'sans-serif'],
-        'sf-medium': ['SF Pro Text Medium', 'sans-serif'],
-        'sf-semibold': ['SF Pro Text Semibold', 'sans-serif'],
-        'sf-bold': ['SF Pro Text Bold', 'sans-serif'],
-        'sf-heavy': ['SF Pro Text Heavy', 'sans-serif'],
-        
+        "pattanakarn-black": ["Pattanakarn Black", "sans-serif"],
+        "pattanakarn-bold": ["Pattanakarn Bold", "sans-serif"],
+        "pattanakarn-extrabold": ["Pattanakarn ExtraBold", "sans-serif"],
+        "pattanakarn-extralight": ["Pattanakarn ExtraLight", "sans-serif"],
+        "pattanakarn-light": ["Pattanakarn Light", "sans-serif"],
+        "pattanakarn-medium": ["Pattanakarn Medium", "sans-serif"],
+        "pattanakarn-semibold": ["Pattanakarn SemiBold", "sans-serif"],
+        "pattanakarn-thin": ["Pattanakarn Thin", "sans-serif"],
+        "sf-light": ["SF Pro Text Light", "sans-serif"],
+        "sf-regular": ["SF Pro Text Regular", "sans-serif"],
+        "sf-medium": ["SF Pro Text Medium", "sans-serif"],
+        "sf-semibold": ["SF Pro Text Semibold", "sans-serif"],
+        "sf-bold": ["SF Pro Text Bold", "sans-serif"],
+        "sf-heavy": ["SF Pro Text Heavy", "sans-serif"],
       },
       colors: {
         black: {
@@ -35,25 +42,31 @@ export default {
           600: "#AFB0B6",
           500: "#62646C",
         },
-     
         light: {
           primary: "#FFFFFF",
           secondary: "#F0F2FA",
-          text: "#1A1A1A"
+          text: "#1A1A1A",
         },
         dark: {
           primary: "#29292c",
           secondary: "#3b3b3f",
-          text: "#FFFFFF"
+          text: "#FFFFFF",
         },
-        app:{
-          green: "#43dc9b",
-          blue_primary: "#4c42bc",  
-          blue_secondary: "#6453dc",
-          blue_light: "#6774d0",
-          violet_white: "#e2f5ec",
-
-        }
+        green: {
+          light: "#43dc9b",
+        },
+        blue: {
+          light: "#00c1ff",
+          lighter: "#48e9fa",
+          medium_light: "#00c1ff",
+          medium_dark: "#0084ff",
+          dark: "#0084ff",
+          darker: "#005ffe",
+        },
+        app: {
+          light: "#08405f",
+          dark: "#062636",
+        },
       },
     },
   },

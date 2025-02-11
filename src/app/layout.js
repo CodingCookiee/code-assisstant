@@ -8,7 +8,7 @@ import "../styles/globals.css";
 export const metadata = {
   title: "DeepCode - Your Code Assistant",
   icons: {
-    icon: "/favicon-light.png",
+    icon: "/favicon.png",
   },
 };
 export default function RootLayout({ children }) {
