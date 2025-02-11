@@ -17,6 +17,7 @@ export default {
         'sf-semibold': ['SF Pro Text Semibold', 'sans-serif'],
         'sf-bold': ['SF Pro Text Bold', 'sans-serif'],
         'sf-heavy': ['SF Pro Text Heavy', 'sans-serif'],
+        
       },
       colors: {
         black: {

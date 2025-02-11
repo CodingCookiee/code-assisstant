@@ -6,7 +6,7 @@ import Sidebar from "./components/layout/Sidebar";
 import "../styles/globals.css";
 
 export const metadata = {
-  title: "Code Genius - Your Code Assistant",
+  title: "DeepCode - Your Code Assistant",
   icons: {
     icon: "/favicon-light.png",
   },

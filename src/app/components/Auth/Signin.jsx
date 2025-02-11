@@ -43,8 +43,11 @@ const Signin = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-96">
-                <h2 className="text-2xl font-bold mb-6">Sign In</h2>
+            <form onSubmit={handleSubmit} className="bg-transparent ">
+                <div className='logo-container flex items-center justify-center mb-8 gap-2.5'>
+                    <img src="/favicon-light.png" alt="App Logo" className="w-14 h-14" />
+                    <h1 className='font-sf-heavy text-4xl font-semibold text-app-blue_secondary'>DeepCode</h1>
+                </div>
                 
                 <div className="mb-4">
                     <label className="block mb-2">Email</label>

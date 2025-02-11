@@ -69,6 +69,46 @@
     font-family: 'SF Pro Text';
     font-weight: 800;
   }
+
+}
+
+/* Pattanakarn font */
+@layer base {
+  /* Light */
+  .font-light {
+    font-family: 'Pattanakarn ExtraLight';
+    font-weight: 200;
+  }
+
+  .font-light {
+    font-family: 'Pattanakarn Light';
+    font-weight: 300;
+  }
+
+  .font-regular {
+    font-family: 'Pattanakarn Medium';
+    font-weight: 500;
+  }
+
+
+  /* Semibold */
+  .font-semibold {
+    font-family: 'Pattanakarn Semibold';
+    font-weight: 600;
+  }
+
+  /* Bold */
+  .font-bold {
+    font-family: 'Pattanakarn Bold';
+    font-weight: 700;
+  }
+
+  /* Heavy */
+  .font-heavy {
+    font-family: 'Pattanakarn ExtraBold';
+    font-weight: 800;
+  }
+
 }
 
 
