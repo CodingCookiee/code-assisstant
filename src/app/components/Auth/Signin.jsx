@@ -46,7 +46,7 @@ const Signin = () => {
             <form onSubmit={handleSubmit} className="bg-transparent ">
                 <div className='logo-container flex items-center justify-center mb-8 gap-2.5'>
                     <img src="/favicon.png" alt="App Logo" className="w-14 h-14" />
-                    <h1 className='font-pattanakarn-light text-4xl font-semibold text-blue-medium_dark'>DeepCode</h1>
+                    <h1 className='font-pattanakarn-semibold text-4xl font-semibold text-blue-medium_dark'>DeepCode</h1>
                 </div>
                 
                 <div className="mb-4">
