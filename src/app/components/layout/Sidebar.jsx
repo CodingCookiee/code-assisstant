@@ -68,7 +68,7 @@ const Sidebar = () => {
         </Link>
         
         <button
-          onClick={() => signOut({ callbackUrl: '/' })}
+          onClick={() => signOut({ callbackUrl: '/signin' })}
           className="w-full flex items-center space-x-2 p-2 rounded-lg hover:bg-black-100/10 dark:hover:bg-white-500/10"
         >
           <LogOut className="h-4 w-4" />

@@ -64,7 +64,7 @@ const Header = () => {
         </div>
       ) : (
         <div className="flex items-center gap-2.5">
-          <Link href="/auth/signin">
+          <Link href="/signin">
             <Button
               variant="custom"
               className="mt-2 font-sf-light bg-dark-primary/90 hover:bg-dark-secondary/90  dark:bg-light-primary dark:hover:bg-light-secondary text-white dark:text-black-200  transition-all duration-300 rounded-xl "
@@ -72,7 +72,7 @@ const Header = () => {
               Login
             </Button>
           </Link>
-          <Link href="/auth/signup">
+          <Link href="/signup">
             <Button
               variant="custom"
               className="mt-2 font-sf-light bg-light-secondary/100 hover:bg-light-secondary/60 text-dark-primary   dark:bg-dark-secondary/100 dark:hover:bg-dark-secondary/80  dark:text-light-primary   transition-all duration-300 rounded-xl"
