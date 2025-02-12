@@ -8,12 +8,21 @@ import "../styles/globals.css";
 export const metadata = {
   title: "DeepCode - Your Code Assistant",
   icons: {
-    icon: {
-      url: '/favicon.svg',
-      type: 'image/svg+xml',
-    }
-  },
-};
+    icon: [
+      {
+        url: '/favicon-dark.png',
+        type: 'image/svg+xml',
+        media: '(prefers-color-scheme: light)'
+      },
+      {
+        url: '/favicon-light.png',
+        type: 'image/svg+xml',
+        media: '(prefers-color-scheme: dark)'
+      }
+    ]
+  }
+}
+
 
 export default function RootLayout({ children }) {
   console.log('Favicon path:', '/favicon.svg')
