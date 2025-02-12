@@ -25,7 +25,7 @@ export const metadata = {
 
 
 export default function RootLayout({ children }) {
-  console.log('Favicon path:', '/favicon.svg')
+  
   return (
     <html lang="en">
       <body className="font-sf-light bg-light-primary dark:bg-dark-primary text-light-text dark:text-dark-text">

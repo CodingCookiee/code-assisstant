@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
@@ -22,6 +21,10 @@
     "mongoose": "^8.9.7",
     "next": "15.1.6",
     "next-auth": "^4.24.11",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1"
