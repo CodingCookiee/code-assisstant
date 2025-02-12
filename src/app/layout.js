@@ -8,10 +8,15 @@ import "../styles/globals.css";
 export const metadata = {
   title: "DeepCode - Your Code Assistant",
   icons: {
-    icon: "/favicon.svg",
+    icon: {
+      url: '/favicon.svg',
+      type: 'image/svg+xml',
+    }
   },
 };
+
 export default function RootLayout({ children }) {
+  console.log('Favicon path:', '/favicon.svg')
   return (
     <html lang="en">
       <body className="font-sf-light bg-light-primary dark:bg-dark-primary text-light-text dark:text-dark-text">

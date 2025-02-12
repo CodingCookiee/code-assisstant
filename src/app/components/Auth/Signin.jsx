@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 const Signin = () => {
+
+    console.log('Logo light path:', '/logo-light.svg')
+    console.log('Public directory:', process.env.PUBLIC_URL)
     const router = useRouter()
     const [formData, setFormData] = useState({
         email: '',
