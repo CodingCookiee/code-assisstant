@@ -4,15 +4,18 @@ import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { User, Settings, LogOut } from "lucide-react";
-import { Button } from "../common";
+import { Button, Skeleton } from "../common";
+
 
 const Header = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [dropdownOpen, setDropDownOpen] = useState(false);
 
   return (
     <header className="h-16 px-8 py-8 flex items-center justify-end">
-      {session ? (
+      {status === "loading" ? (
+        <Skeleton className="h-10 w-10 rounded-full" />
+      ) : session ? (
         <div className="hidden lg:block relative">
           <Button
             onClick={() => setDropDownOpen(!dropdownOpen)}
@@ -21,7 +24,7 @@ const Header = () => {
             {session.user?.image ? (
               <img
                 src={session.user.image}
-                alt={session.user.name}
+                alt={session.user?.name || "User avatar"}
                 className="rounded-full h-8 w-8"
               />
             ) : (
@@ -34,7 +37,7 @@ const Header = () => {
               <div className="py-1">
                 <div className="px-4 py-2 border-b border-black-300/10 dark:border-white-500/10">
                   <p className="font-medium text-black-300 dark:text-white-700">
-                    {session.user.name || session.user.email}
+                    {session.user?.name || session.user?.email}
                   </p>
                 </div>
 

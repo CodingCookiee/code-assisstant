@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import passport from '../../../../../services';
+import passport from '../../../../../services/passport';
 
 export async function GET() {
   try {
-    return passport.authenticate('github', {
-      scope: ['user:email'],
+    return passport.authenticate('google', {
+      scope: ['profile', 'email'],
       session: false
     })();
   } catch (error) {
