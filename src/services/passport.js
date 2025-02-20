@@ -5,6 +5,7 @@ import { Strategy as GitHubStrategy } from 'passport-github2';
 import bcrypt from 'bcrypt';
 import User from './models/user.model.js';
 import {redis} from './lib/redis.js';
+import jwt from 'jsonwebtoken';
 
 
 // Local Strategy for Signup
@@ -14,13 +15,24 @@ passport.use('local-signup', new LocalStrategy({
   passReqToCallback: true
 }, async (req, email, password, done) => {
   try {
+
+    const { name } = req.body;
+    
+    if (!name || !email || !password) {
+      return done(null, false, { message: 'All fields are required' });
+    }
+
+    // Rest of your existing signup logic
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return done(null, false, { message: 'Email already exists, please try another one.' });
+      return done(null, false, { message: 'Email already exists' });
     }
-    
-   
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const newUser = await User.create({
+      name,
       email,
       password: hashedPassword,
       provider: 'local'
@@ -28,7 +40,6 @@ passport.use('local-signup', new LocalStrategy({
     
     return done(null, newUser);
   } catch (error) {
-    console.log('Error Signing up', error.message)
     return done(error);
   }
 }));
@@ -47,7 +58,7 @@ passport.use('local-signin', new LocalStrategy({
 
     return done(null, user);
   } catch (error) {
-    console.log('Error Signing in', error.message)
+    console.log('Error Signing in', error)
     return done(error);
   }
 }));
@@ -62,6 +73,11 @@ passport.use(new GoogleStrategy({
   scope: ['profile', 'email']
 }, async (accessToken, refreshToken, profile, done) => {
   try {
+
+    if (!profile.id || !profile.emails || !profile.emails[0].value) {
+      return done(new Error('Insufficient profile information from Google'));
+    }
+
     let user = await User.findOne({ googleId: profile.id });
     
     if (!user) {
@@ -75,7 +91,7 @@ passport.use(new GoogleStrategy({
     
     return done(null, user);
   } catch (error) {
-    console.log('Error Signing in with Google', error.message);
+    console.log('Error Signing in with Google', error);
     return done(error);
   }
 }));
@@ -90,6 +106,11 @@ passport.use(new GitHubStrategy({
   scope: ['user:email']
 }, async (accessToken, refreshToken, profile, done) => {
   try {
+    if (!profile.id || !profile.emails || !profile.emails[0].value) {
+      return done(new Error('Insufficient profile information from GitHub'));
+    }
+
+
     let user = await User.findOne({ githubId: profile.id });
     
     if (!user) {
@@ -103,27 +124,51 @@ passport.use(new GitHubStrategy({
     
     return done(null, user);
   } catch (error) {
-    console.log('Error Signing in with GitHub', error.message);
+    console.log('Error Signing in with GitHub', error);
     return done(error);
   }
 }));
 
 // Session serialization with Redis
 passport.serializeUser((user, done) => {
-  const sessionKey = `session:${user.id}`;
-  redis.set(sessionKey, JSON.stringify(user), 'EX', process.env.SESSION_TTL || 86400);
-  done(null, sessionKey);
+  try {
+    const sessionKey = `session:${user.id}`;
+    redis.set(sessionKey, JSON.stringify(user), 'EX', process.env.SESSION_TTL || 86400, (err) => {
+      if (err) {
+        console.error('Error serializing user to Redis', err);
+        return done(err);
+      }
+      done(null, sessionKey);
+    });
+  } catch (error) {
+    console.error('Error serializing user', error);
+    done(error);
+  }
 });
 
 passport.deserializeUser(async (sessionKey, done) => {
   try {
     const userData = await redis.get(sessionKey);
-    done(null, userData ? JSON.parse(userData) : null);
+    if (userData) {
+      // Refresh session expiration
+      await redis.expire(sessionKey, process.env.SESSION_TTL || 86400);
+      done(null, JSON.parse(userData));
+    } else {
+      done(null, null);
+    }
   } catch (error) {
-    console.log('Error deserializing user', error.message);
+    console.error('Error deserializing user', error);
     done(error);
   }
 });
 
-export default passport;
+// Token Generation 
+export const generateToken = (user) => {
+  return jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN || '1d'
+  });
+}
+
+export { passport };
+
 

@@ -1,35 +1,52 @@
 import { NextResponse } from 'next/server';
-import passport from '../../../../../services';
+import { passport, generateToken } from '../../../../../services';
 
 export async function POST(req) {
   try {
-    return passport.authenticate('local-signin', (err, user, info) => {
-      if (err) {
-        return NextResponse.json(
-          { error: err.message },
-          { status: 500 }
-        );
-      }
-      
-      if (!user) {
-        return NextResponse.json(
-          { error: info.message },
-          { status: 401 }
-        );
-      }
+    const body = await req.json();
+    
 
-      return NextResponse.json({
-        message: 'Signin successful',
-        user: {
-          id: user.id,
-          email: user.email,
-          provider: user.provider
+    // Create custom request object for Passport
+    const customReq = {
+      body,
+      ...req
+    };
+
+    return new Promise((resolve) => {
+      passport.authenticate('local-signin', { session: false }, (err, user, info) => {
+        if (err) {
+          
+          return resolve(NextResponse.json(
+            { error: err.message },
+            { status: 500 }
+          ));
         }
-      });
-    })(req);
+        
+        if (!user) {
+        
+          return resolve(NextResponse.json(
+            { error: info?.message || 'Authentication failed' },
+            { status: 401 }
+          ));
+        }
+
+        const token = generateToken(user);
+       
+
+        return resolve(NextResponse.json({
+          user: {
+            id: user._id,
+            email: user.email,
+            name: user.name
+          },
+          token
+        }));
+      })(customReq);
+    });
   } catch (error) {
+    console.log('Signin route error:', error);
     return NextResponse.json(
-      { error: 'Signin failed' },
+      { error: 'Authentication failed' },
       { status: 500 }
     );
   }
